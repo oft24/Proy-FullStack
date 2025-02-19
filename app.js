@@ -42,9 +42,24 @@ app.get('/api/protected', authMiddleware, (req, res) => {
   res.send('Esta es una ruta protegida');
 });
 
+// Ruta para la página de inicio de sesión
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Ruta para la página de registro
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
+// Ruta para la página de bienvenida
+app.get('/welcome', authMiddleware, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
+});
+
 // Manejo de rutas no encontradas
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // Manejo de errores global

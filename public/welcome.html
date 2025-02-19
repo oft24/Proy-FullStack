@@ -4,65 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #c82333;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Welcome</h1>
-        <p id="welcomeMessage"></p>
+        <p>You have successfully logged in!</p>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                alert('You are not logged in');
-                window.location.href = 'login.html';
-                return;
-            }
-            const response = await fetch('/api/users/me', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            const data = await response.json();
-            if (response.ok) {
-                document.getElementById('welcomeMessage').textContent = `Welcome, ${data.username}`;
-            } else {
-                alert('Session expired, please login again');
-                window.location.href = 'login.html';
-            }
-        });
-    </script>
 </body>
 </html>
