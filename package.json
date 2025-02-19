@@ -1,0 +1,29 @@
+{
+  "name": "actividad-4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^3.0.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jest": "^29.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^6.13.0",
+    "mongoose": "^5.12.3",
+    "supertest": "^7.0.0"
+  },
+  "description": ""
+}
