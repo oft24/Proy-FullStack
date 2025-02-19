@@ -1,13 +1,21 @@
+require('dotenv').config();
 const request = require('supertest');
 const app = require('../app');
 const mongoose = require('mongoose');
 
+const uri = process.env.MONGODB_URI;
+
 describe('Auth Controller', () => {
   beforeAll(async () => {
-    await mongoose.connect('mongodb+srv://usuario:usuario@cluster0.yjqt9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    });
+    })
+      .then(() => console.log('✅ MongoDB conectado correctamente'))
+      .catch(err => {
+        console.error('❌ Error de conexión a MongoDB:', err.message);
+        process.exit(1);
+      });
   });
 
   afterAll(async () => {

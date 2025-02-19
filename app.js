@@ -5,24 +5,19 @@ const mongoose = require('mongoose');
 const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 
-if (!MONGO_URI) {
-  console.error('❌ ERROR: MONGODB_URI no está definido en .env');
-  process.exit(1);
-}
-
-// Conectar a MongoDB
-mongoose.connect(MONGO_URI, {
+mongoose.set('strictQuery', true); 
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ MongoDB conectado correctamente'))
-.catch(err => {
-  console.error('❌ Error de conexión a MongoDB:', err.message);
-  process.exit(1);
-});
-
+  .then(() => console.log('✅ MongoDB conectado correctamente'))
+  .catch(err => {
+    console.error('❌ Error de conexión a MongoDB:', err.message);
+    process.exit(1);
+  });
+  
 const app = express();
 
 // Middlewares
