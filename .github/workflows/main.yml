@@ -32,4 +32,4 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          JWT_SECRET: ${{ secrets.TOKEN_PROFE }}
+          JWT_SECRET: ${{ secrets.TOKEN_PROFE }} --yes
