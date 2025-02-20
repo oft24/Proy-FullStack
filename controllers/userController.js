@@ -15,12 +15,11 @@ exports.getAllUsers = async (req, res) => {
     const users = await User.find();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'An error occurred while fetching users' });
   }
 };
 
-// Obtener un usuario por ID
-exports.getUserById = async (req, res) => {
+const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -28,18 +27,23 @@ exports.getUserById = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Error fetching user' });
   }
 };
 
-exports.updateUser = (req, res) => {
-  validateUserInput(req, res, () => {
-    res.send('Update user');
-  });
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating user' });
+  }
 };
 
-// Eliminar un usuario
-exports.deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
@@ -47,11 +51,11 @@ exports.deleteUser = async (req, res) => {
     }
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Error deleting user' });
   }
 };
 
-// Example user controller functions
+
 
 exports.getUser = (req, res) => {
   validateUserInput(req, res, () => {
@@ -59,7 +63,6 @@ exports.getUser = (req, res) => {
   });
 };
 
-// Register user
 exports.registerUser = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -70,14 +73,13 @@ exports.registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, password: hashedPassword });
     await user.save();
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });  // Uso de JWT
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });  
     res.status(201).json({ message: 'User registered successfully', token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-// Login user
 exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -89,7 +91,7 @@ exports.loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });  // Uso de JWT
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });  
     res.json({ message: 'Te haz logeado correctamente', token });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -106,8 +108,7 @@ exports.login = async (req, res) => {
     if (!isMatch) {
         return res.status(400).send('Invalid credentials');
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });  // Uso de JWT
-    res.json({ token });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' }); 
 };
 
 exports.register = async (req, res) => {
@@ -124,9 +125,9 @@ exports.register = async (req, res) => {
 
 module.exports = {
   getAllUsers: exports.getAllUsers,
-  getUserById: exports.getUserById,
-  updateUser: exports.updateUser,
-  deleteUser: exports.deleteUser,
+  getUserById,
+  updateUser,
+  deleteUser,
   getUser: exports.getUser,
   validateUserInput,
   registerUser: exports.registerUser,

@@ -17,13 +17,18 @@ mongoose.connect(uri, {
     console.error('❌ Error de conexión a MongoDB:', err.message);
     process.exit(1);
   });
-  
+
 const app = express();
 
 // Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 // Importación de rutas y middleware
 const authRoutes = require('./routes/authRoutes');

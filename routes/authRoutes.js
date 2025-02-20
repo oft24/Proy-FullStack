@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-router.post('/login', userController.login);
-router.post('/register', userController.register);
+router.post('/register', authController.register);
+router.post('/login', authController.login);
 
 router.get('/me', authMiddleware, async (req, res) => {
   try {
