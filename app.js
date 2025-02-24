@@ -3,9 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
+const axios = require('axios');
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
+const STEAM_API_KEY = '66E4A6C3BB254E9A86FC237EAEE469B7'; // Clave API de Steam
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(uri, {
@@ -60,6 +62,28 @@ app.get('/register', (req, res) => {
 // Ruta para la página de bienvenida
 app.get('/welcome', authMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
+});
+
+// Ruta para la API de Steam
+app.get('/api/steam/:steamId', async (req, res) => {
+  const steamId = req.params.steamId;
+  try {
+    const response = await axios.get(`http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${STEAM_API_KEY}&steamids=${steamId}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// Nueva ruta para obtener el historial de juegos jugados y las horas jugadas
+app.get('/api/steam/games/:steamId', async (req, res) => {
+  const steamId = req.params.steamId;
+  try {
+    const response = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${STEAM_API_KEY}&steamid=${steamId}&format=json&include_appinfo=true`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 });
 
 // Manejo de rutas no encontradas
