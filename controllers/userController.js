@@ -19,7 +19,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-const getUserById = async (req, res) => {
+exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -27,11 +27,11 @@ const getUserById = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching user' });
+    res.status(500).json({ error: 'An error occurred while fetching the user' });
   }
 };
 
-const updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!user) {
@@ -39,11 +39,11 @@ const updateUser = async (req, res) => {
     }
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Error updating user' });
+    res.status(500).json({ error: 'An error occurred while updating the user' });
   }
 };
 
-const deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
@@ -51,11 +51,9 @@ const deleteUser = async (req, res) => {
     }
     res.json({ message: 'User deleted successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting user' });
+    res.status(500).json({ error: 'An error occurred while deleting the user' });
   }
 };
-
-
 
 exports.getUser = (req, res) => {
   validateUserInput(req, res, () => {
@@ -125,9 +123,9 @@ exports.register = async (req, res) => {
 
 module.exports = {
   getAllUsers: exports.getAllUsers,
-  getUserById,
-  updateUser,
-  deleteUser,
+  getUserById: exports.getUserById,
+  updateUser: exports.updateUser,
+  deleteUser: exports.deleteUser,
   getUser: exports.getUser,
   validateUserInput,
   registerUser: exports.registerUser,

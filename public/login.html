@@ -4,23 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <form id="loginForm">
-    <h2>Login</h2>
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Login</button>
-    <p id="error" class="error"></p>
-  </form>
-  <p>Don't have an account? <a href="/register">Register here</a></p>
-  <script src="/js/login.js"></script>
+  <div class="container">
+    <form id="loginForm" class="form">
+      <h2>Login</h2>
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+      <p id="error" class="error"></p>
+    </form>
+    <p>Don't have an account? <a href="/register">Register here</a></p>
+  </div>
+  <script src="js/login.js"></script>
 </body>
 </html>
