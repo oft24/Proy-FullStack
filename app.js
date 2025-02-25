@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -80,6 +79,17 @@ app.get('/api/steam/games/:steamId', async (req, res) => {
   const steamId = req.params.steamId;
   try {
     const response = await axios.get(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${STEAM_API_KEY}&steamid=${steamId}&format=json&include_appinfo=true`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// Nueva ruta para obtener la lista de amigos
+app.get('/api/steam/friends/:steamId', async (req, res) => {
+  const steamId = req.params.steamId;
+  try {
+    const response = await axios.get(`http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=${STEAM_API_KEY}&steamid=${steamId}&relationship=friend`);
     res.json(response.data);
   } catch (error) {
     res.status(500).send(error.message);

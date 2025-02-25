@@ -2,7 +2,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-console.log(localStorage.getItem('token'));
+
   try {
     const response = await fetch('/auth/login', {
       method: 'POST',
@@ -16,7 +16,6 @@ console.log(localStorage.getItem('token'));
     if (response.ok) {
       localStorage.setItem('token', data.token);
       window.location.href = '/welcome.html';
-
     } else {
       document.getElementById('error').innerText = data.error;
     }
