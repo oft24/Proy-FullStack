@@ -81,7 +81,7 @@ button:hover {
   color: red;
 }
 
-#steamInfo {
+#steamInfo, #lolInfo {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
