@@ -1,17 +1,17 @@
-document.getElementById('lolForm').addEventListener('submit', async function(event) {
+document.getElementById('lolForm').addEventListener('submit', async (event) => {
   event.preventDefault();
   const username = document.getElementById('username').value;
-  
-  // Obtener historial de partidas de LoL
-  const response = await fetch(`/api/lol/${username}`);
-  const data = await response.json();
-  
-  // Mostrar historial de partidas
+  const tag = document.getElementById('tag').value;
   const lolInfoDiv = document.getElementById('lolInfo');
-  lolInfoDiv.innerHTML = '<h3>Match History</h3>';
-  data.matches.forEach(match => {
-    const matchItem = document.createElement('p');
-    matchItem.innerHTML = `Match ID: ${match.gameId} - Result: ${match.win ? 'Win' : 'Loss'}`;
-    lolInfoDiv.appendChild(matchItem);
-  });
+
+  try {
+    const response = await fetch(`/api/lol/${username}/${tag}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    lolInfoDiv.innerHTML = JSON.stringify(data, null, 2);
+  } catch (error) {
+    lolInfoDiv.innerHTML = `Error: ${error.message}`;
+  }
 });

@@ -97,18 +97,18 @@ app.get('/api/steam/friends/:steamId', async (req, res) => {
   }
 });
 
-// Nueva ruta para obtener el historial de partidas de LoL
-app.get('/api/lol/:username', async (req, res) => {
-  const username = req.params.username;
+// Nueva ruta para obtener el historial de partidas de LoL utilizando el nombre de invocador y tag
+app.get('/api/lol/:username/:tag', async (req, res) => {
+  const { username, tag } = req.params;
   try {
     // Obtener el summoner ID a partir del nombre de usuario
     const summonerResponse = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}`, {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
-    const summonerId = summonerResponse.data.id;
+    const encryptedSummonerId = summonerResponse.data.id;
 
-    // Obtener el historial de partidas a partir del summoner ID
-    const matchesResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${summonerId}`, {
+    // Obtener el historial de partidas a partir del encryptedSummonerId
+    const matchesResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${encryptedSummonerId}`, {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
 
