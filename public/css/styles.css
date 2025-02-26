@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #04041c; /* Fondo cambiado a #04041c */
+  color: #ffffff; /* Blanco */
   margin: 0;
   padding: 0;
   display: flex;
@@ -10,7 +11,7 @@ body {
 }
 
 .container {
-  background: #fff;
+  background: #001f3f; /* Azul oscuro */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -18,8 +19,15 @@ body {
   width: 100%;
 }
 
+.logo {
+  width: 150px; /* Tamaño del logo aumentado */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
 h1, h2 {
-  color: #333;
+  color: #ffffff; /* Blanco */
   text-align: center;
 }
 
@@ -37,22 +45,22 @@ input[type="text"], input[type="password"] {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #007bff; /* Azul medio */
   border-radius: 4px;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #007bff; /* Azul medio */
+  color: #ffffff; /* Blanco */
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Azul medio oscuro */
 }
 
 .info-section {
@@ -60,7 +68,7 @@ button:hover {
 }
 
 .info-section h2 {
-  color: #333;
+  color: #ffffff; /* Blanco */
   margin-bottom: 10px;
 }
 
@@ -70,9 +78,9 @@ button:hover {
 }
 
 .info-section li {
-  background: #f9f9f9;
+  background: #001f3f; /* Azul oscuro */
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #007bff; /* Azul medio */
   border-radius: 4px;
   margin-bottom: 10px;
 }
@@ -83,7 +91,7 @@ button:hover {
 }
 
 #steamInfo, #lolInfo {
-  background: #fff;
+  background: #001f3f; /* Azul oscuro */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
