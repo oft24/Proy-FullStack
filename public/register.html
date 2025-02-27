@@ -4,22 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <form id="registerForm">
-    <h2>Register</h2>
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Register</button>
-    <p id="error" class="error"></p>
-  </form>
-  <script src="/js/register.js"></script>
+  <div class="container">
+    <img src="img/luis.gg.png" alt="Logo" class="logo" style="width: 180px;">
+    <form id="registerForm" class="form">
+      <h2>Register</h2>
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Register</button>
+      <p id="error" class="error"></p>
+    </form>
+  </div>
+  <script src="js/register.js"></script>
 </body>
 </html>
