@@ -29,24 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-// Importación de rutas y middleware
-const authRoutes = require('./routes/authRoutes');
-const authMiddleware = require('./middleware/authMiddleware');
-const userRoutes = require('./routes/userRoutes');
-
 // Rutas
-app.use('/auth', authRoutes);
-app.use('/api/users', userRoutes);
-
 app.get('/api', (req, res) => {
   res.send('API funcionando');
-});
-
-app.get('/api/protected', authMiddleware, (req, res) => {
-  res.send('Esta es una ruta protegida');
 });
 
 // Ruta para la página de inicio de sesión
@@ -60,7 +45,7 @@ app.get('/register', (req, res) => {
 });
 
 // Ruta para la página de bienvenida
-app.get('/welcome', authMiddleware, (req, res) => {
+app.get('/welcome', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
 });
 
@@ -112,7 +97,14 @@ app.get('/api/lol/:username/:tag', async (req, res) => {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
 
-    res.json(matchesResponse.data);
+    const matchDetails = await Promise.all(matchesResponse.data.matches.slice(0, 10).map(async match => {
+      const matchDetailResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${match.gameId}`, {
+        headers: { 'X-Riot-Token': RIOT_API_KEY }
+      });
+      return matchDetailResponse.data;
+    }));
+
+    res.json({ matches: matchDetails });
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -121,12 +113,6 @@ app.get('/api/lol/:username/:tag', async (req, res) => {
 // Manejo de rutas no encontradas
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-// Manejo de errores global
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('¡Algo salió mal!');
 });
 
 // Iniciar servidor solo si MongoDB está conectado

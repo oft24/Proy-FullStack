@@ -65,6 +65,7 @@ button:hover {
 
 .info-section {
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .info-section h2 {
@@ -96,4 +97,19 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   white-space: pre-wrap;
+}
+
+#matchList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#matchList li {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#matchList p {
+  margin: 5px 0;
 }
