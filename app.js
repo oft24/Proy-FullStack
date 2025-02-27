@@ -8,7 +8,7 @@ const axios = require('axios');
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
 const STEAM_API_KEY = '66E4A6C3BB254E9A86FC237EAEE469B7'; 
-const RIOT_API_KEY = 'RGAPI-dfd16348-a729-4ea2-bc1f-f92af7dc52ec'; 
+const RIOT_API_KEY = 'RGAPI-785511ab-1704-403f-a29a-fd756c4b9131'; 
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(uri, {
@@ -97,22 +97,41 @@ app.get('/api/steam/friends/:steamId', async (req, res) => {
   }
 });
 
-// Nueva ruta para obtener el historial de partidas de LoL utilizando el nombre de invocador y tag
-app.get('/api/lol/:username/:tag', async (req, res) => {
-  const { username, tag } = req.params;
+// Nueva ruta para obtener el PUUID del jugador
+app.get('/api/riot/puuid/:gameName/:tagLine', async (req, res) => {
+  const { gameName, tagLine } = req.params;
   try {
-    // Obtener el summoner ID a partir del nombre de usuario
-    const summonerResponse = await axios.get(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}`, {
+    const response = await axios.get(`https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}`, {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
-    const encryptedSummonerId = summonerResponse.data.id;
+    const puuid = response.data.puuid;
+    res.json({ puuid });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-    // Obtener el historial de partidas a partir del encryptedSummonerId
-    const matchesResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matchlists/by-account/${encryptedSummonerId}`, {
+// Nueva ruta para obtener los IDs de las últimas 20 partidas utilizando el PUUID
+app.get('/api/lol/matches/:puuid', async (req, res) => {
+  const { puuid } = req.params;
+  try {
+    const response = await axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`, {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
-    res.json(matchesResponse.data);
+// Nueva ruta para obtener información de cada partida utilizando el matchId
+app.get('/api/lol/match/:matchId', async (req, res) => {
+  const { matchId } = req.params;
+  try {
+    const response = await axios.get(`https://americas.api.riotgames.com/lol/match/v5/matches/${matchId}`, {
+      headers: { 'X-Riot-Token': RIOT_API_KEY }
+    });
+    res.json(response.data);
   } catch (error) {
     res.status(500).send(error.message);
   }
