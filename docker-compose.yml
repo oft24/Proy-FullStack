@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - PORT=${PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - STEAM_API_KEY=${STEAM_API_KEY}
+      - RIOT_API_KEY=${RIOT_API_KEY}
+    volumes:
+      - .:/usr/src/app
