@@ -7,8 +7,8 @@ const axios = require('axios');
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
-const STEAM_API_KEY = process.env.STEAM_API_KEY; 
-const RIOT_API_KEY = process.env.RIOT_API_KEY; 
+const STEAM_API_KEY = '66E4A6C3BB254E9A86FC237EAEE469B7'; 
+const RIOT_API_KEY = 'RGAPI-dfd16348-a729-4ea2-bc1f-f92af7dc52ec'; 
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(uri, {
@@ -29,9 +29,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Importación de rutas y middleware
+const authRoutes = require('./routes/authRoutes');
+const authMiddleware = require('./middleware/authMiddleware');
+const userRoutes = require('./routes/userRoutes');
+
 // Rutas
 app.get('/api', (req, res) => {
   res.send('API funcionando');
+});
+
+app.get('/api/protected', authMiddleware, (req, res) => {
+  res.send('Esta es una ruta protegida');
 });
 
 // Ruta para la página de inicio de sesión
@@ -45,7 +57,7 @@ app.get('/register', (req, res) => {
 });
 
 // Ruta para la página de bienvenida
-app.get('/welcome', (req, res) => {
+app.get('/welcome', authMiddleware, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'welcome.html'));
 });
 
@@ -101,6 +113,8 @@ app.get('/api/lol/:username/:tag', async (req, res) => {
       const matchDetailResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${match.gameId}`, {
         headers: { 'X-Riot-Token': RIOT_API_KEY }
       });
+      res.json(matchesResponse.data);
+
       return matchDetailResponse.data;
     }));
 
@@ -113,6 +127,12 @@ app.get('/api/lol/:username/:tag', async (req, res) => {
 // Manejo de rutas no encontradas
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
+// Manejo de errores global
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('¡Algo salió mal!');
 });
 
 // Iniciar servidor solo si MongoDB está conectado
