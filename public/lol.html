@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LoL Info</title>
+  <title>League of Legends Match History</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <div class="container">
     <img src="img/luis.gg.png" alt="Logo" class="logo" style="width: 180px;">
-    <h1>LoL Info</h1>
+    <h1>League of Legends Match History</h1>
     <form id="lolForm" class="form">
-      <label for="username">Enter LoL Username:</label>
+      <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
-      <label for="tag">Enter Tag:</label>
+      <label for="tag">Tag:</label>
       <input type="text" id="tag" name="tag" required>
       <button type="submit">Get Match History</button>
     </form>
-    <div id="lolInfo" class="info-section">
+    <div id="matchHistory" class="info-section">
       <h2>Match History</h2>
-      <ul id="matchList"></ul>
+      <ul id="matchesList"></ul>
     </div>
   </div>
   <script src="js/lol.js"></script>

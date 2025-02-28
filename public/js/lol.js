@@ -1,27 +1,20 @@
-document.getElementById('lolForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
+document.getElementById('lolForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
   const username = document.getElementById('username').value;
   const tag = document.getElementById('tag').value;
-  const matchList = document.getElementById('matchList');
 
   try {
     const response = await fetch(`/api/lol/${username}/${tag}`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
     const data = await response.json();
-    matchList.innerHTML = '';
+    const matchesList = document.getElementById('matchesList');
+    matchesList.innerHTML = '';
 
-    data.matches.forEach(match => {
-      const matchItem = document.createElement('li');
-      matchItem.innerHTML = `
-        <p>Match Duration: ${match.gameDuration} seconds</p>
-        <p>Players: ${match.participantIdentities.map(p => p.player.summonerName).join(', ')}</p>
-        <p>Result: ${match.participants[0].stats.win ? 'Win' : 'Loss'}</p>
-      `;
-      matchList.appendChild(matchItem);
+    data.matches.slice(0, 5).forEach(match => {
+      const listItem = document.createElement('li');
+      listItem.textContent = `Match ID: ${match.gameId}, Champion: ${match.champion}, Role: ${match.role}`;
+      matchesList.appendChild(listItem);
     });
   } catch (error) {
-    matchList.innerHTML = `Error: ${error.message}`;
+    console.error('An error occurred:', error);
   }
 });

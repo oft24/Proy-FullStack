@@ -113,3 +113,15 @@ button:hover {
 #matchList p {
   margin: 5px 0;
 }
+
+#matchesList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#matchesList li {
+  background-color: #f4f4f4;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}

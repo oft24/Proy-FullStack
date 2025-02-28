@@ -109,12 +109,10 @@ app.get('/api/lol/:username/:tag', async (req, res) => {
       headers: { 'X-Riot-Token': RIOT_API_KEY }
     });
 
-    const matchDetails = await Promise.all(matchesResponse.data.matches.slice(0, 10).map(async match => {
+    const matchDetails = await Promise.all(matchesResponse.data.matches.slice(0, 5).map(async match => { // Limitar a las últimas 5 partidas
       const matchDetailResponse = await axios.get(`https://na1.api.riotgames.com/lol/match/v4/matches/${match.gameId}`, {
         headers: { 'X-Riot-Token': RIOT_API_KEY }
       });
-      res.json(matchesResponse.data);
-
       return matchDetailResponse.data;
     }));
 
