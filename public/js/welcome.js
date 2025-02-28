@@ -14,28 +14,23 @@ document.getElementById('steamForm').addEventListener('submit', async function(e
   const friendsResponse = await fetch(`/api/steam/friends/${steamId}`);
   const friendsData = await friendsResponse.json();
   
-  // Mostrar información del usuario
-  const steamInfoDiv = document.getElementById('steamInfo');
-  steamInfoDiv.innerHTML = `
-    <h3>User Info</h3>
-    <p><strong>Steam ID:</strong> ${userInfo.response.players[0].steamid}</p>
-    <p><strong>Username:</strong> ${userInfo.response.players[0].personaname}</p>
-    <p><strong>Profile URL:</strong> <a href="${userInfo.response.players[0].profileurl}" target="_blank">View Profile</a></p>
-  `;
   
-  // Mostrar historial de juegos jugados y horas jugadas
+  // Mostrar historial de juegos jugados y horas jugadas (más de 100 horas)
   const gamesList = document.getElementById('gamesList');
   gamesList.innerHTML = '';
-  gamesData.response.games.forEach(game => {
-    const gameItem = document.createElement('li');
-    gameItem.innerHTML = `<strong>${game.name}</strong> - ${Math.round(game.playtime_forever / 60)} hours played`;
-    gamesList.appendChild(gameItem);
-  });
+  gamesData.response.games
+    .filter(game => game.playtime_forever > 100 * 60) // Filtrar juegos con más de 100 horas jugadas
+    .slice(0, 5) // Limitar a los últimos 5 juegos
+    .forEach(game => {
+      const gameItem = document.createElement('li');
+      gameItem.innerHTML = `<strong>${game.name}</strong> - ${Math.round(game.playtime_forever / 60)} hours played`;
+      gamesList.appendChild(gameItem);
+    });
 
-  // Mostrar lista de amigos
+  // Mostrar lista de amigos (últimos 5 amigos)
   const friendsList = document.getElementById('friendsList');
   friendsList.innerHTML = '';
-  friendsData.friendslist.friends.forEach(friend => {
+  friendsData.friendslist.friends.slice(0, 5).forEach(friend => {
     const friendItem = document.createElement('li');
     friendItem.innerHTML = `<strong>Steam ID:</strong> ${friend.steamid}`;
     friendsList.appendChild(friendItem);
