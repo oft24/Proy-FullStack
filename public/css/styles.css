@@ -97,3 +97,116 @@ button:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   white-space: pre-wrap;
 }
+
+.match-summary {
+  background: #001f3f; /* Azul oscuro */
+  padding: 10px;
+  border: 1px solid #007bff; /* Azul medio */
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.match-summary.win {
+  border-color: green;
+}
+
+.match-summary.loss {
+  border-color: red;
+}
+
+.match-summary h3 {
+  color: #ffffff; /* Blanco */
+  margin-bottom: 5px;
+}
+
+.match-summary p {
+  color: #ffffff; /* Blanco */
+  margin: 0;
+}
+
+.match-details {
+  margin-top: 10px;
+}
+
+.team-composition {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summoner {
+  margin-right: 10px;
+  text-align: center;
+}
+
+.champion-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.match-summaries {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  border: 1px solid #007bff; /* Azul medio */
+  border-radius: 4px;
+  background: #001f3f; /* Azul oscuro */
+  margin-top: 20px;
+}
+
+.match-summaries-wrapper {
+  max-height: 400px; /* Adjust the height as needed */
+  overflow-y: auto;
+  padding-right: 10px; /* Add some padding to avoid scrollbar overlap */
+}
+
+.match-summary {
+  background: #001f3f; /* Azul oscuro */
+  padding: 10px;
+  border: 1px solid #007bff; /* Azul medio */
+  border-radius: 4px;
+  margin-right: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.match-summary.win {
+  border-color: green;
+}
+
+.match-summary.loss {
+  border-color: red;
+}
+
+.match-summary h3 {
+  color: #ffffff; /* Blanco */
+  margin-bottom: 5px;
+}
+
+.match-summary p {
+  color: #ffffff; /* Blanco */
+  margin: 0;
+}
+
+.match-details {
+  margin-top: 10px;
+}
+
+.team-composition {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summoner {
+  margin-right: 10px;
+  text-align: center;
+}
+
+.champion-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}

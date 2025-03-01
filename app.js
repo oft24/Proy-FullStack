@@ -8,7 +8,7 @@ const axios = require('axios');
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
 const STEAM_API_KEY = '66E4A6C3BB254E9A86FC237EAEE469B7'; 
-const RIOT_API_KEY = 'RGAPI-785511ab-1704-403f-a29a-fd756c4b9131'; 
+const RIOT_API_KEY = 'RGAPI-7bb35340-41d5-40c8-8640-be94a24e3ed4'; 
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(uri, {
