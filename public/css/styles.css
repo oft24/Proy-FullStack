@@ -129,9 +129,35 @@ button:hover {
   margin-top: 10px;
 }
 
+.match-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.match-details th, .match-details td {
+  border: 1px solid #007bff; /* Azul medio */
+  padding: 8px;
+  text-align: center;
+  color: #ffffff; /* Blanco */
+}
+
+.match-details th {
+  background-color: #001f3f; /* Azul oscuro */
+}
+
+.match-details td {
+  background-color: #04041c; /* Fondo oscuro */
+}
+
+.team-composition h4 {
+  color: #ffffff; /* Blanco */
+  margin-top: 20px;
+}
+
 .team-composition {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .summoner {
@@ -157,7 +183,7 @@ button:hover {
 }
 
 .match-summaries-wrapper {
-  max-height: 400px; /* Adjust the height as needed */
+  max-height: 600px; /* Adjust the height as needed */
   overflow-y: auto;
   padding-right: 10px; /* Add some padding to avoid scrollbar overlap */
 }

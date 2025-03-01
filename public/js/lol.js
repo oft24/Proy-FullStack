@@ -44,12 +44,58 @@ document.getElementById('lolForm').addEventListener('submit', async (event) => {
         <div id="details-${info.matchId}" class="match-details" style="display: none;">
           <p><strong>Champion Played:</strong> ${info.championName}</p>
           <div class="team-composition">
-            ${info.match.info.participants.map(p => `
-              <div class="summoner">
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/${p.championName}.png" alt="${p.championName}" class="champion-icon">
-                <p>${p.summonerName}</p>
-              </div>
-            `).join('')}
+            <h4>Blue Side</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Summoner</th>
+                  <th>Champion</th>
+                  <th>Kills</th>
+                  <th>Deaths</th>
+                  <th>Assists</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${info.match.info.participants.filter(p => p.teamId === 100).map(p => `
+                  <tr>
+                    <td>${p.riotIdGameName}</td>
+                    <td>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/${p.championName}.png" alt="${p.championName}" class="champion-icon">
+                      ${p.championName}
+                    </td>
+                    <td>${p.kills}</td>
+                    <td>${p.deaths}</td>
+                    <td>${p.assists}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+            <h4>Red Side</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Summoner</th>
+                  <th>Champion</th>
+                  <th>Kills</th>
+                  <th>Deaths</th>
+                  <th>Assists</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${info.match.info.participants.filter(p => p.teamId === 200).map(p => `
+                  <tr>
+                    <td>${p.riotIdGameName}</td>
+                    <td>
+                      <img src="https://ddragon.leagueoflegends.com/cdn/11.24.1/img/champion/${p.championName}.png" alt="${p.championName}" class="champion-icon">
+                      ${p.championName}
+                    </td>
+                    <td>${p.kills}</td>
+                    <td>${p.deaths}</td>
+                    <td>${p.assists}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
