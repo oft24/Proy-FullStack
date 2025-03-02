@@ -39,31 +39,31 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #ffffff; /* Blanco */
+  color: #ffffff;
 }
 
 input[type="text"], input[type="password"], select {
-  width: 100%;
+  width: 90%; 
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff; 
   border-radius: 4px;
-  background-color: #04041c; /* Fondo oscuro */
-  color: #ffffff; /* Blanco */
+  background-color: #04041c; 
+  color: #ffffff; 
 }
 
 button {
-  width: 100%;
+  width: 93%; 
   padding: 10px;
-  background-color: #007bff; /* Azul medio */
-  color: #ffffff; /* Blanco */
+  background-color: #007bff; 
+  color: #ffffff; 
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #0056b3; /* Azul medio oscuro */
+  background-color: #0056b3; 
 }
 
 .info-section {
@@ -71,7 +71,7 @@ button:hover {
 }
 
 .info-section h2 {
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
   margin-bottom: 10px;
 }
 
@@ -81,9 +81,9 @@ button:hover {
 }
 
 .info-section li {
-  background: #001f3f; /* Azul oscuro */
+  background: #001f3f; 
   padding: 10px;
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff;
   border-radius: 4px;
   margin-bottom: 10px;
 }
@@ -94,7 +94,7 @@ button:hover {
 }
 
 #steamInfo, #lolInfo {
-  background: #001f3f; /* Azul oscuro */
+  background: #001f3f; 
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -102,9 +102,9 @@ button:hover {
 }
 
 .match-summary {
-  background: #001f3f; /* Azul oscuro */
+  background: #001f3f; 
   padding: 10px;
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff; 
   border-radius: 4px;
   margin-bottom: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -119,12 +119,12 @@ button:hover {
 }
 
 .match-summary h3 {
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
   margin-bottom: 5px;
 }
 
 .match-summary p {
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
   margin: 0;
 }
 
@@ -139,22 +139,22 @@ button:hover {
 }
 
 .match-details th, .match-details td {
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff; 
   padding: 8px;
   text-align: center;
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
 }
 
 .match-details th {
-  background-color: #001f3f; /* Azul oscuro */
+  background-color: #001f3f; 
 }
 
 .match-details td {
-  background-color: #04041c; /* Fondo oscuro */
+  background-color: #04041c; 
 }
 
 .team-composition h4 {
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
   margin-top: 20px;
 }
 
@@ -179,22 +179,22 @@ button:hover {
   display: flex;
   overflow-x: auto;
   padding: 10px;
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff;
   border-radius: 4px;
-  background: #001f3f; /* Azul oscuro */
+  background: #001f3f; 
   margin-top: 20px;
 }
 
 .match-summaries-wrapper {
-  max-height: 600px; /* Adjust the height as needed */
+  max-height: 600px; 
   overflow-y: auto;
-  padding-right: 10px; /* Add some padding to avoid scrollbar overlap */
+  padding-right: 10px; 
 }
 
 .match-summary {
-  background: #001f3f; /* Azul oscuro */
+  background: #001f3f; 
   padding: 10px;
-  border: 1px solid #007bff; /* Azul medio */
+  border: 1px solid #007bff;
   border-radius: 4px;
   margin-right: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -210,12 +210,12 @@ button:hover {
 }
 
 .match-summary h3 {
-  color: #ffffff; /* Blanco */
+  color: #ffffff; 
   margin-bottom: 5px;
 }
 
 .match-summary p {
-  color: #ffffff; /* Blanco */
+  color: #ffffff;
   margin: 0;
 }
 
@@ -254,17 +254,17 @@ table {
 th, td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #007bff; /* Azul medio */
+  border-bottom: 1px solid #007bff;
 }
 
 th {
-  background-color: #001f3f; /* Azul oscuro */
-  color: #ffffff; /* Blanco */
+  background-color: #001f3f; 
+  color: #ffffff; 
 }
 
 td {
-  background-color: #04041c; /* Fondo oscuro */
-  color: #ffffff; /* Blanco */
+  background-color: #04041c; 
+  color: #ffffff; 
 }
 
 .form-group {

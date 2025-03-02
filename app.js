@@ -6,11 +6,12 @@ const path = require('path');
 const axios = require('axios');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
+const { errorMiddleware } = require('./middleware/errorMiddleware');
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
-const STEAM_API_KEY = '66E4A6C3BB254E9A86FC237EAEE469B7'; 
-const RIOT_API_KEY = 'RGAPI-7bb35340-41d5-40c8-8640-be94a24e3ed4'; 
+const STEAM_API_KEY = process.env.STEAM_API_KEY;
+const RIOT_API_KEY = process.env.RIOT_API_KEY;
 
 mongoose.set('strictQuery', true); 
 mongoose.connect(uri, {
@@ -155,10 +156,7 @@ app.get('*', (req, res) => {
 });
 
 // Manejo de errores global
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('¡Algo salió mal!');
-});
+app.use(errorMiddleware);
 
 // Iniciar servidor solo si MongoDB está conectado
 app.listen(PORT, () => {
