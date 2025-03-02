@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <td>${user.password}</td>
           <td>${user.role}</td>
           <td>
-            <button onclick="editUser('${user._id}')">Edit</button>
-            <button onclick="deleteUser('${user._id}')">Delete</button>
+            <button onclick="editUser('${user._id}')" class="action-button" style="margin-bottom: 10px;">Edit</button>
+            <button onclick="deleteUser('${user._id}')" class="action-button delete-button">Delete</button>
           </td>
         `;
         usersTableBody.appendChild(row);

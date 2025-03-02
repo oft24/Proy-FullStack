@@ -270,3 +270,13 @@ td {
 .form-group {
   margin-bottom: 15px;
 }
+
+.action-button {
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  margin-right: 0;
+  margin-bottom: 0;
+}
