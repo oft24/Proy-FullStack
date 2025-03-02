@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Intro</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome, Admin!</h1>
+    <p>This is the intro page for administrators.</p>
+    
+    <h2>All Users</h2>
+    <div class="table-container">
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- User rows will be populated here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Create User</h2>
+    <form id="createUserForm" class="form">
+      <div class="form-group">
+        <label for="newUsername">Username:</label>
+        <input type="text" id="newUsername" required>
+      </div>
+      <div class="form-group">
+        <label for="newPassword">Password:</label>
+        <input type="password" id="newPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="newRole">Role:</label>
+        <select id="newRole">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button type="submit">Create User</button>
+    </form>
+  </div>
+  <script src="js/introadmin.js"></script>
+</body>
+</html>

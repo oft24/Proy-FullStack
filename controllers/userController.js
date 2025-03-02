@@ -32,8 +32,10 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
+  const { username, password, role } = req.body;
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.findByIdAndUpdate(req.params.id, { username, password: hashedPassword, role }, { new: true });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -121,6 +123,22 @@ exports.register = async (req, res) => {
     res.status(201).send('User registered');
 };
 
+exports.createAdmin = async (req, res) => {
+  const { username, password, role } = req.body;
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newAdmin = new User({ username, password: hashedPassword, role });
+    await newAdmin.save();
+    res.status(201).json({ message: 'Admin created successfully.' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred during admin creation' });
+  }
+};
+
 module.exports = {
   getAllUsers: exports.getAllUsers,
   getUserById: exports.getUserById,
@@ -132,4 +150,5 @@ module.exports = {
   loginUser: exports.loginUser,
   login: exports.login,
   register: exports.register,
+  createAdmin: exports.createAdmin,
 };
