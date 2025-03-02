@@ -13,26 +13,26 @@ const uri = process.env.MONGODB_URI;
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 
-mongoose.set('strictQuery', true); 
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(async () => {
-    console.log('✅ MongoDB conectado correctamente');
-    // Crear administrador predeterminado
-    const adminExists = await User.findOne({ username: 'luis1' });
-    if (!adminExists) {
-      const hashedPassword = await bcrypt.hash('luis1', 10);
-      const admin = new User({ username: 'luis1', password: hashedPassword, role: 'admin' });
-      await admin.save();
-      console.log('✅ Administrador predeterminado creado');
-    }
-  })
-  .catch(err => {
-    console.error('❌ Error de conexión a MongoDB:', err.message);
-    process.exit(1);
-  });
+mongoose.set('strictQuery', true);
+
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(uri)
+    .then(async () => {
+      console.log('✅ MongoDB conectado correctamente');
+      // Crear administrador predeterminado
+      const adminExists = await User.findOne({ username: 'luis1' });
+      if (!adminExists) {
+        const hashedPassword = await bcrypt.hash('luis1', 10);
+        const admin = new User({ username: 'luis1', password: hashedPassword, role: 'admin' });
+        await admin.save();
+        console.log('✅ Administrador predeterminado creado');
+      }
+    })
+    .catch(err => {
+      console.error('❌ Error de conexión a MongoDB:', err.message);
+      process.exit(1);
+    });
+}
 
 const app = express();
 
@@ -159,8 +159,10 @@ app.get('*', (req, res) => {
 app.use(errorMiddleware);
 
 // Iniciar servidor solo si MongoDB está conectado
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
