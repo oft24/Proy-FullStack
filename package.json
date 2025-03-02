@@ -1,7 +1,7 @@
 {
-  "name": "actividad-4",
+  "name": "proy-fullstack",
   "version": "1.0.0",
-  "description": "Authentication application",
+  "description": "Full Stack Project",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

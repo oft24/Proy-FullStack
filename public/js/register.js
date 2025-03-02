@@ -1,9 +1,11 @@
-document.getElementById('registerForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
+document.getElementById('registerForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-
+  
   try {
+    console.log('Attempting registration for user:', username);
     const response = await fetch('/auth/register', {
       method: 'POST',
       headers: {
@@ -11,14 +13,18 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
       },
       body: JSON.stringify({ username, password }),
     });
-
+    
     const data = await response.json();
+    
     if (response.ok) {
-      window.location.href = '/';
+      console.log('Registration successful:', data);
+      window.location.href = '/login.html';
     } else {
-      document.getElementById('error').innerText = data.error;
+      console.error('Registration failed:', data.error);
+      document.getElementById('error').textContent = data.error;
     }
   } catch (error) {
-    document.getElementById('error').innerText = 'An error occurred. Please try again.';
+    console.error('An error occurred during registration:', error);
+    document.getElementById('error').textContent = 'An error occurred. Please try again.';
   }
 });

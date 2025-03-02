@@ -77,6 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.deleteUser = async (userId) => {
+    const confirmation = confirm('Are you sure you want to delete this user?');
+    if (!confirmation) {
+      return;
+    }
     try {
       await fetch(`/api/users/${userId}`, {
         method: 'DELETE',

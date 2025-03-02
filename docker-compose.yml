@@ -5,11 +5,17 @@ services:
     build: .
     ports:
       - "3000:3000"
-    environment:
-      - MONGODB_URI=${MONGODB_URI}
-      - PORT=${PORT}
-      - JWT_SECRET=${JWT_SECRET}
-      - STEAM_API_KEY=${STEAM_API_KEY}
-      - RIOT_API_KEY=${RIOT_API_KEY}
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
     volumes:
-      - .:/usr/src/app
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

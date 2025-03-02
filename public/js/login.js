@@ -5,6 +5,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
   const password = document.getElementById('password').value;
   
   try {
+    console.log('Attempting login for user:', username);
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
@@ -16,6 +17,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const data = await response.json();
     
     if (response.ok) {
+      console.log('Login successful:', data);
       localStorage.setItem('token', data.token);
       if (data.role === 'admin') {
         window.location.href = '/introadmin.html';
@@ -23,9 +25,11 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
         window.location.href = '/intro.html';
       }
     } else {
+      console.error('Login failed:', data.error);
       document.getElementById('error').textContent = data.error;
     }
   } catch (error) {
+    console.error('An error occurred during login:', error);
     document.getElementById('error').textContent = 'An error occurred. Please try again.';
   }
 });
