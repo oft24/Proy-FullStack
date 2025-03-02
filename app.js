@@ -4,6 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 const axios = require('axios');
+const bcrypt = require('bcrypt');
+const User = require('./models/User');
 
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
@@ -15,7 +17,17 @@ mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log('✅ MongoDB conectado correctamente'))
+  .then(async () => {
+    console.log('✅ MongoDB conectado correctamente');
+    // Crear administrador predeterminado
+    const adminExists = await User.findOne({ username: 'luis1' });
+    if (!adminExists) {
+      const hashedPassword = await bcrypt.hash('luis1', 10);
+      const admin = new User({ username: 'luis1', password: hashedPassword, role: 'admin' });
+      await admin.save();
+      console.log('✅ Administrador predeterminado creado');
+    }
+  })
   .catch(err => {
     console.error('❌ Error de conexión a MongoDB:', err.message);
     process.exit(1);
@@ -39,7 +51,7 @@ const userRoutes = require('./routes/userRoutes');
 
 // Rutas
 app.use('/auth', authRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/users', authMiddleware, userRoutes);
 
 app.get('/api', (req, res) => {
   res.send('API funcionando');
